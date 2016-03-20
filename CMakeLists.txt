@@ -4,10 +4,13 @@ aux_source_directory(src/ SRC_LIST)
 set(EXECUTABLE_NAME ${PROJECT_NAME})
 add_executable(${PROJECT_NAME} ${SRC_LIST})
 
-set(CMAKE_CXX_COMPILER "gcc")
+#set(CMAKE_CXX_COMPILER "/usr/bin/gcc")
+set(CMAKE_CXX_FLAGS "-std=c++11 -g")
 
 # Detect and add SFML
-set(CMAKE_MODULE_PATH "cmake_modules/" ${CMAKE_MODULE_PATH})
+set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake_modules)
+message(${CMAKE_MODULE_PATH})
+
 #Find any version 2.X of SFML
 #See the FindSFML.cmake file for additional details and instructions
 find_package(SFML 2 REQUIRED system window graphics network audio)
