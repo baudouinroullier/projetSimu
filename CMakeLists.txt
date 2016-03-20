@@ -4,6 +4,8 @@ aux_source_directory(src/ SRC_LIST)
 set(EXECUTABLE_NAME ${PROJECT_NAME})
 add_executable(${PROJECT_NAME} ${SRC_LIST})
 
+set(CMAKE_CXX_COMPILER "gcc")
+
 # Detect and add SFML
 set(CMAKE_MODULE_PATH "cmake_modules/" ${CMAKE_MODULE_PATH})
 #Find any version 2.X of SFML
