@@ -9,9 +9,9 @@ Feuille excel : https://docs.google.com/spreadsheets/d/1MrfwoxVlFF4Z6S7hiM5UAF3z
 Arbre des trucs a faire : http://demo.redmine.org/projects/the-game/activity
 
 
-Apprendre a utiliser Git : https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control (chapitre 1 à 3 suffisants)
+Apprendre a utiliser Git : https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control (chapitres 1 à 3 suffisants)
 
-Apprendre le C++ : https://openclassrooms.com/courses/programmez-avec-le-langage-c
+Apprendre le C++ : https://openclassrooms.com/courses/programmez-avec-le-langage-c (parties 1, 2 et 4)
 
 # Installation et compilation
 
@@ -34,3 +34,4 @@ make
 ## Windows
 
 to do
+
