@@ -9,10 +9,7 @@ macro (add_exec name src)
 endmacro (add_exec)
 
 
-#set(CMAKE_CXX_COMPILER "/usr/bin/gcc")
 set(CMAKE_CXX_FLAGS "-std=c++11 -g")
-
-# Detect and add SFML
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake_modules)
 
 #Find any version 2.X of SFML
@@ -21,6 +18,6 @@ find_package(SFML 2 REQUIRED system window graphics network audio)
 if(SFML_FOUND)
   include_directories(${SFML_INCLUDE_DIR})
   add_exec(${PROJECT_NAME} ${SRC_LIST})
-  add_exec("test_fps" "src/test_fps.cpp")
+  add_subdirectory(tests)
 endif()
 
