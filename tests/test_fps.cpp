@@ -21,7 +21,7 @@ int main()
     for (int i=0; i<10; i++)
     {
         sf::Texture texture;
-        string name = "../img/tile" + to_string(i) + ".png";
+        string name = "../../img/tile" + to_string(i) + ".png";
         texture.loadFromFile(name);
 
         // stitch textures together
