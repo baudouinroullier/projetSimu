@@ -5,7 +5,7 @@
 #include <vector>
 
 
-enum class Tile
+enum class VisualTile
 {
     EMPTY, GROUND, WALL, DOOR, WINDOW
 };
@@ -15,8 +15,8 @@ class Map : public sf::Drawable
 public:
     Map(int width, int height);
 
-    void setTile(int x, int y, Tile newTile);
-    void setTiles(const std::vector<Tile> &newTiles);
+    void setTile(int x, int y, VisualTile newTile);
+    void setTiles(const std::vector<VisualTile> &newTiles);
 
     void update();
 
@@ -24,8 +24,8 @@ public:
 
 private:
     int _width, _height;
-    std::vector<Tile> _tiles;
-    sf::VertexArray _varray; //(sf::Quads, 4*32*24);
+    std::vector<VisualTile> _tiles;
+    sf::VertexArray _varray;
     sf::RenderTexture _stitched;
 };
 

@@ -12,28 +12,28 @@ int main()
     Map map(32,24);
 
     // tiles for the terrain -> should be read from a level design file
-    std::vector<Tile> tiles(32*24,Tile::EMPTY);
+    std::vector<VisualTile> tiles(32*24,VisualTile::EMPTY);
     for (int i=131; i<141; i++)
-        tiles[i] = Tile::WALL;
+        tiles[i] = VisualTile::WALL;
     for (int i=259; i<269; i++)
-        tiles[i] = Tile::GROUND;
-    tiles[163] = Tile::WALL;
-    tiles[172] = Tile::WALL;
-    tiles[195] = Tile::WALL;
-    tiles[204] = Tile::WINDOW;
-    tiles[227] = Tile::DOOR;
-    tiles[236] = Tile::WALL;
+        tiles[i] = VisualTile::GROUND;
+    tiles[163] = VisualTile::WALL;
+    tiles[172] = VisualTile::WALL;
+    tiles[195] = VisualTile::WALL;
+    tiles[204] = VisualTile::WINDOW;
+    tiles[227] = VisualTile::DOOR;
+    tiles[236] = VisualTile::WALL;
 
     for (int i=503; i<508; i++)
-        tiles[i] = Tile::WALL;
+        tiles[i] = VisualTile::WALL;
     for (int i=535; i<540; i++)
-        tiles[i] = Tile::DOOR;
+        tiles[i] = VisualTile::DOOR;
     for (int i=567; i<572; i++)
-        tiles[i] = Tile::GROUND;
+        tiles[i] = VisualTile::GROUND;
 
     // set the tiles we created
     map.setTiles(tiles);
-    map.setTile(7,7,Tile::DOOR);
+    map.setTile(7,7,VisualTile::DOOR);
     map.update();
 
     auto wndSize = window.getSize();

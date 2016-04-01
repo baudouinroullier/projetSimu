@@ -2,7 +2,7 @@
 #include <string>
 
 
-Map::Map(int width, int height) : _width(width), _height(height), _tiles(width*height, Tile::EMPTY), _varray(sf::Quads, 4*width*height)
+Map::Map(int width, int height) : _width(width), _height(height), _tiles(width*height, VisualTile::EMPTY), _varray(sf::Quads, 4*width*height)
 {
     std::vector<std::string> nameList = {"ground", "wall", "door", "window"};
     _stitched.create((nameList.size()+1)*50,50);
@@ -31,14 +31,14 @@ Map::Map(int width, int height) : _width(width), _height(height), _tiles(width*h
     }
 }
 
-void Map::setTile(int x, int y, Tile newTile)
+void Map::setTile(int x, int y, VisualTile newTile)
 {
     if (x<0 || x>=_width || y<0 || y>=_height)
         throw (std::logic_error("New tile position is out of bounds."));
     _tiles[_width*y + x] = newTile;
 }
 
-void Map::setTiles(const std::vector<Tile> &newTiles)
+void Map::setTiles(const std::vector<VisualTile> &newTiles)
 {
     if (newTiles.size() != _tiles.size())
         throw (std::logic_error("newTiles should be the same size as the map."));
