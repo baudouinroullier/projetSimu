@@ -3,10 +3,12 @@
 #include <string>
 
 #include "drawlib/map.h"
+#include "drawlib/animatedsprite.h"
 
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(1024, 768), "Projet Simu!");  // create window
+    window.setVerticalSyncEnabled(true);
 
     // tiled terrain
     Map map(32,24);
@@ -36,6 +38,11 @@ int main()
     map.setTile(7,7,VisualTile::DOOR);
     map.update();
 
+    // create an animated sprite
+    AnimatedSprite anime("../img/animated.png", sf::milliseconds(200));
+    anime.move(256,128);
+    sf::Clock clock;
+
     auto wndSize = window.getSize();
     sf::View view({0,0, (float)wndSize.x, (float)wndSize.y});
 
@@ -53,30 +60,36 @@ int main()
                 switch (event.key.code)
                 {
                 case sf::Keyboard::Right:
-                    view.move(20,0);
+                    view.move(32,0);
                     break;
                 case sf::Keyboard::Left:
-                    view.move(-20,0);
+                    view.move(-32,0);
                     break;
                 case sf::Keyboard::Down:
-                    view.move(0,20);
+                    view.move(0,32);
                     break;
                 case sf::Keyboard::Up:
-                    view.move(0,-20);
+                    view.move(0,-32);
+                    break;
+                case sf::Keyboard::Escape:
+                    window.close();
                     break;
                 default:
                     break;
                 }
             }
             if (event.type == sf::Event::Resized)
-            {
                 view.setSize(event.size.width, event.size.height);
-            }
         }
+
+        anime.rotate(clock.getElapsedTime().asMilliseconds()*M_PI/180/4);
+        anime.updateAnimation(clock.getElapsedTime());
+        clock.restart();
 
         window.setView(view);
         window.clear();
         window.draw(map);
+        window.draw(anime);
         window.display();
     }
 

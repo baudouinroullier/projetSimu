@@ -8,7 +8,6 @@ set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake_modules)
 
 file(GLOB_RECURSE SRC_LIST src/*)
 
-message(${SRC_LIST})
 
 #Find any version 2.X of SFML
 #See the FindSFML.cmake file for additional details and instructions
