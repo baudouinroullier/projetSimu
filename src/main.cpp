@@ -39,7 +39,19 @@ int main()
     map.update();
 
     // create an animated sprite
-    AnimatedSprite anime("../img/animated.png", sf::milliseconds(200));
+    AnimationSteps steps;
+    steps.push_back({0,sf::milliseconds(200)});
+    steps.push_back({2,sf::milliseconds(200)});
+    steps.push_back({4,sf::milliseconds(200)});
+    steps.push_back({6,sf::milliseconds(200)});
+    steps.push_back({8,sf::milliseconds(200)});
+    steps.push_back({6,sf::seconds(1)});
+    steps.push_back({8,sf::seconds(1)});
+    steps.push_back({4,sf::seconds(1)});
+    steps.push_back({2,sf::seconds(1)});
+    steps.push_back({0,sf::seconds(1)});
+//    AnimatedSprite anime("../img/animated.png", sf::milliseconds(200));
+    AnimatedSprite anime("../img/animated.png", steps);
     anime.move(256,128);
     sf::Clock clock;
 

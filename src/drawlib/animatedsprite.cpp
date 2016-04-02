@@ -20,7 +20,7 @@ AnimatedSprite::AnimatedSprite(std::string fileName, sf::Time delay) : _varray(s
     updatePosition();
 }
 
-AnimatedSprite::AnimatedSprite(std::string fileName, std::vector<std::pair<unsigned int, sf::Time>> &orderAndDelay) : _varray(sf::Quads, 4), _orderAndDelay(orderAndDelay), _x(32), _y(32), _angle(0)
+AnimatedSprite::AnimatedSprite(std::string fileName, AnimationSteps &steps) : _varray(sf::Quads, 4), _orderAndDelay(steps), _x(32), _y(32), _angle(0)
 {
     _textures.loadFromFile(fileName);
     auto framesSize = _textures.getSize();
@@ -74,10 +74,10 @@ void AnimatedSprite::updateAnimation(sf::Time dt)
         cumulatedTime += _orderAndDelay[frameNumber].second;
     }
 
-    _varray[0].texCoords = {64*frameNumber,0};
-    _varray[1].texCoords = {64*frameNumber+64,0};
-    _varray[2].texCoords = {64*frameNumber+64,64};
-    _varray[3].texCoords = {64*frameNumber,64};
+    _varray[0].texCoords = {64*(float)_orderAndDelay[frameNumber].first,0};
+    _varray[1].texCoords = {64*(float)_orderAndDelay[frameNumber].first+64,0};
+    _varray[2].texCoords = {64*(float)_orderAndDelay[frameNumber].first+64,64};
+    _varray[3].texCoords = {64*(float)_orderAndDelay[frameNumber].first,64};
 }
 
 void AnimatedSprite::draw(sf::RenderTarget &target, sf::RenderStates states) const

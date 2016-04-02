@@ -6,11 +6,14 @@
 #include <string>
 
 
+typedef std::vector<std::pair<unsigned int, sf::Time>> AnimationSteps;
+
+
 class AnimatedSprite : public sf::Drawable
 {
 public:
     AnimatedSprite(std::string fileName, sf::Time delay);
-    AnimatedSprite(std::string fileName, std::vector<std::pair<unsigned int, sf::Time>> &orderAndDelay);
+    AnimatedSprite(std::string fileName, AnimationSteps &steps);
 
     void setPosition(double x, double y);
     void setRotation(double angle);
@@ -27,7 +30,7 @@ private:
     sf::VertexArray _varray;
 
     // animation time variables
-    std::vector<std::pair<unsigned int, sf::Time>> _orderAndDelay;
+    AnimationSteps _orderAndDelay;
     sf::Time _clock, _totalTime;
 
     // placement and rotation variables
