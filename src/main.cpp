@@ -9,8 +9,12 @@ int main()
 {
     sf::RenderWindow window(sf::VideoMode(1024, 768), "Projet Simu!");  // create window
     window.setVerticalSyncEnabled(true);
+    auto wndSize = window.getSize();
+    sf::View view({0,0, (float)wndSize.x, (float)wndSize.y});
+    window.setView(view);
 
-    // tiled terrain
+
+    /****** TESTING MAPS ******/
     Map map(32,24);
 
     // tiles for the terrain -> should be read from a level design file
@@ -37,7 +41,9 @@ int main()
     map.setTiles(tiles);
     map.setTile(7,7,VisualTile::DOOR);
     map.update();
+    /**************************/
 
+    /****** TESTING ANIMATED SPRITES ******/
     // create an animated sprite
     AnimationSteps steps;
     steps.push_back({0,sf::milliseconds(200)});
@@ -48,19 +54,18 @@ int main()
     steps.push_back({6,sf::seconds(1)});
     steps.push_back({8,sf::seconds(1)});
     steps.push_back({4,sf::seconds(1)});
-    steps.push_back({2,sf::seconds(1)});
     steps.push_back({0,sf::seconds(1)});
-//    AnimatedSprite anime("../img/animated.png", sf::milliseconds(200));
+    steps.push_back({2,sf::seconds(1)});
     AnimatedSprite anime("../img/animated.png", steps);
     anime.move(256,128);
-    sf::Clock clock;
+    sf::Clock animationClock;
+    /**************************************/
 
-    auto wndSize = window.getSize();
-    sf::View view({0,0, (float)wndSize.x, (float)wndSize.y});
 
     // main loop, TODO: move elsewhere
     while (window.isOpen())
     {
+        /****** MANAGING EVENTS ******/
         sf::Event event;
         while(window.pollEvent(event))
         {
@@ -91,18 +96,25 @@ int main()
                 }
             }
             if (event.type == sf::Event::Resized)
+            {
                 view.setSize(event.size.width, event.size.height);
+                window.setView(view);
+            }
         }
+        /*****************************/
 
-        anime.rotate(clock.getElapsedTime().asMilliseconds()*M_PI/180/4);
-        anime.updateAnimation(clock.getElapsedTime());
-        clock.restart();
+        /****** UPDATE ANIMATED SPRITES ******/
+        anime.rotate(animationClock.getElapsedTime().asMilliseconds()*M_PI/180/4);
+        anime.updateAnimation(animationClock.getElapsedTime());
+        animationClock.restart();
+        /**************************************/
 
-        window.setView(view);
+        /****** DISPLAY EVERYTHING ******/
         window.clear();
         window.draw(map);
         window.draw(anime);
         window.display();
+        /********************************/
     }
 
     return 0;
