@@ -56,9 +56,11 @@ Téléchargez la SFML (http://www.sfml-dev.org/files/SFML-2.3.2-windows-gcc-4.9.
 
 Ouvrez votre GUI pour git et trouvez comment on clone un dépôt. Clonez https://github.com/baudouinroullier/projetSimu.git dans le dossier de votre choix.
 
+Ajoutez le chemin vers mingw dans la variable d'environnement PATH de windows (par exemple http://superuser.com/questions/949560/how-do-i-set-system-environment-variables-in-windows-10) (plus de détails à venir)
+
 Lancez cmake et créez un dossier build dans la racine de votre dépôt local. Indiquez à cmake la racine pour le code source et le dossier build pour construire les binaires. S'il y a des options pour lesquelles vous n'êtes pas sûr, demandez par mail et on verra. Je mettrai à jour ce README.
 
-Ensuite, il faut faire des trucs magiques avec la SFML selon cette page : http://www.sfml-dev.org/tutorials/2.3/start-cb.php. En théorie, c'est là que ça marchera pas et qu'on en rediscutera par mail/skype/discord plus tard. Si ça marche, bravo, mais c'est pas fini. Suivez les étapes pour linker dynamiquement, et pas statiquement.
+Ensuite, il faut faire des trucs magiques avec la SFML suivant cette page : http://www.sfml-dev.org/tutorials/2.3/start-cb.php. En théorie, c'est là que ça marchera pas et qu'on en rediscutera par mail/skype/discord plus tard. Si ça marche, bravo, mais c'est pas fini. Suivez les étapes pour linker dynamiquement, et pas statiquement.
 
 Vous venez en théorie de créer un nouveau projet SFML. Il faut faire les même manips pour le projet qui a été cloné. Cmake devrait avoir crée un fichier .cbp que code blocks peut lire pour charger le projet, donc ça devrait être à peu près les mêmes étapes que sur le tuto SFML.
 
