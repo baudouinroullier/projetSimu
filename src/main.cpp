@@ -72,29 +72,9 @@ int main()
             if (event.type == sf::Event::Closed)
                 window.close();
 
-            if (event.type == sf::Event::KeyPressed)
-            {
-                switch (event.key.code)
-                {
-                case sf::Keyboard::Right:
-                    view.move(32,0);
-                    break;
-                case sf::Keyboard::Left:
-                    view.move(-32,0);
-                    break;
-                case sf::Keyboard::Down:
-                    view.move(0,32);
-                    break;
-                case sf::Keyboard::Up:
-                    view.move(0,-32);
-                    break;
-                case sf::Keyboard::Escape:
-                    window.close();
-                    break;
-                default:
-                    break;
-                }
-            }
+            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
+                window.close();
+
             if (event.type == sf::Event::Resized)
             {
                 view.setSize(event.size.width, event.size.height);
@@ -102,6 +82,29 @@ int main()
             }
         }
         /*****************************/
+
+        /****** MOVING THE SPRITE LIKE A PLAYER ******/
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+            anime.move(10,0);
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+            anime.move(-10,0);
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+            anime.move(0,10);
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+            anime.move(0,-10);
+
+        auto pos = anime.getPosition();
+        if (pos[0] < view.getSize().x/2)
+            pos[0] = view.getSize().x/2;
+        if (pos[0] > 64*32 - view.getSize().x/2)
+            pos[0] = 64*32 - view.getSize().x/2;
+        if (pos[1] < view.getSize().y/2)
+            pos[1] = view.getSize().y/2;
+        if (pos[1] > 64*24 - view.getSize().y/2)
+            pos[1] = 64*24 - view.getSize().y/2;
+        view.setCenter(pos[0], pos[1]);
+        window.setView(view);
+        /*********************************************/
 
         /****** UPDATE ANIMATED SPRITES ******/
         anime.rotate(animationClock.getElapsedTime().asMilliseconds()*M_PI/180/4);

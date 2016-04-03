@@ -20,6 +20,8 @@ public:
     void move(double dx, double dy);
     void rotate(double dangle);
 
+    std::vector<float> getPosition();
+
     void updateAnimation(sf::Time dt);
 
     virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;

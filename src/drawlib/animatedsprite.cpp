@@ -60,6 +60,11 @@ void AnimatedSprite::rotate(double dangle)
     setRotation(_angle+dangle);
 }
 
+std::vector<float> AnimatedSprite::getPosition()
+{
+    return {_x,_y};
+}
+
 void AnimatedSprite::updateAnimation(sf::Time dt)
 {
     _clock += dt;
