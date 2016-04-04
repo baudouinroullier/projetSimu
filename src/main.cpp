@@ -44,7 +44,8 @@ int main()
     /**************************/
 
     /****** TESTING ANIMATED SPRITES ******/
-    // create an animated sprite
+    sf::Clock animationClock;
+    /**** single animation ****/
     AnimationSteps steps;
     steps.push_back({0,sf::milliseconds(200)});
     steps.push_back({2,sf::milliseconds(200)});
@@ -58,7 +59,56 @@ int main()
     steps.push_back({2,sf::seconds(1)});
     AnimatedSprite anime("../img/animated.png", steps);
     anime.move(256,128);
-    sf::Clock animationClock;
+
+    /**** multi animation ****/
+    MultiAnimationSteps multisteps;
+    AnimationSteps rightSteps, leftSteps, upSteps, downSteps;
+    rightSteps.push_back({0,sf::milliseconds(200)});
+    rightSteps.push_back({1,sf::milliseconds(200)});
+    rightSteps.push_back({2,sf::milliseconds(200)});
+    rightSteps.push_back({3,sf::milliseconds(200)});
+    leftSteps.push_back({4,sf::milliseconds(400)});
+    leftSteps.push_back({5,sf::milliseconds(600)});
+    leftSteps.push_back({6,sf::milliseconds(400)});
+    leftSteps.push_back({7,sf::milliseconds(600)});
+    upSteps.push_back({8,sf::milliseconds(200)});
+    upSteps.push_back({9,sf::milliseconds(200)});
+    downSteps.push_back({10,sf::milliseconds(400)});
+    downSteps.push_back({11,sf::milliseconds(400)});
+    multisteps.insert({"right", rightSteps});
+    multisteps.insert({"left", leftSteps});
+    multisteps.insert({"up", upSteps});
+    multisteps.insert({"down", downSteps});
+
+    AnimatedSprite multianime("../img/multianimated.png", multisteps);
+    multianime.move(256,256);
+
+    /**** walking guy ****/
+    MultiAnimationSteps multiwalk;
+    AnimationSteps rightWalk, leftWalk, upWalk, downWalk;
+    downWalk.push_back({0,sf::milliseconds(200)});
+    downWalk.push_back({1,sf::milliseconds(200)});
+    downWalk.push_back({2,sf::milliseconds(200)});
+    downWalk.push_back({1,sf::milliseconds(200)});
+    leftWalk.push_back({3,sf::milliseconds(200)});
+    leftWalk.push_back({4,sf::milliseconds(200)});
+    leftWalk.push_back({5,sf::milliseconds(200)});
+    leftWalk.push_back({4,sf::milliseconds(200)});
+    rightWalk.push_back({6,sf::milliseconds(200)});
+    rightWalk.push_back({7,sf::milliseconds(200)});
+    rightWalk.push_back({8,sf::milliseconds(200)});
+    rightWalk.push_back({7,sf::milliseconds(200)});
+    upWalk.push_back({9,sf::milliseconds(200)});
+    upWalk.push_back({10,sf::milliseconds(200)});
+    upWalk.push_back({11,sf::milliseconds(200)});
+    upWalk.push_back({10,sf::milliseconds(200)});
+    multiwalk.insert({"right", rightWalk});
+    multiwalk.insert({"left", leftWalk});
+    multiwalk.insert({"up", upWalk});
+    multiwalk.insert({"down", downWalk});
+
+    AnimatedSprite guy("../img/walkingguy.png", multiwalk);
+    multianime.move(256,256);
     /**************************************/
 
 
@@ -85,15 +135,31 @@ int main()
 
         /****** MOVING THE SPRITE LIKE A PLAYER ******/
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-            anime.move(10,0);
+        {
+            guy.move(2,0);
+            guy.chooseAnimation("right");
+            multianime.chooseAnimation("right");
+        }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-            anime.move(-10,0);
+        {
+            guy.move(-2,0);
+            guy.chooseAnimation("left");
+            multianime.chooseAnimation("left");
+        }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-            anime.move(0,10);
+        {
+            guy.move(0,2);
+            guy.chooseAnimation("down");
+            multianime.chooseAnimation("down");
+        }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-            anime.move(0,-10);
+        {
+            guy.move(0,-2);
+            guy.chooseAnimation("up");
+            multianime.chooseAnimation("up");
+        }
 
-        auto pos = anime.getPosition();
+        auto pos = guy.getPosition();
         if (pos[0] < view.getSize().x/2)
             pos[0] = view.getSize().x/2;
         if (pos[0] > 64*32 - view.getSize().x/2)
@@ -107,8 +173,11 @@ int main()
         /*********************************************/
 
         /****** UPDATE ANIMATED SPRITES ******/
-        anime.rotate(animationClock.getElapsedTime().asMilliseconds()*M_PI/180/4);
-        anime.updateAnimation(animationClock.getElapsedTime());
+        auto elapsedTime = animationClock.getElapsedTime();
+        anime.rotate(elapsedTime.asMilliseconds()*M_PI/180/4);
+        anime.updateAnimation(elapsedTime);
+        multianime.updateAnimation(elapsedTime);
+        guy.updateAnimation(elapsedTime);
         animationClock.restart();
         /**************************************/
 
@@ -116,6 +185,8 @@ int main()
         window.clear();
         window.draw(map);
         window.draw(anime);
+        window.draw(multianime);
+        window.draw(guy);
         window.display();
         /********************************/
     }

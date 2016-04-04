@@ -12,7 +12,7 @@ AnimatedSprite::AnimatedSprite(std::string fileName, sf::Time delay) : _varray(s
 
     int nFrames = width/64;
     for (unsigned int i=0; i<nFrames; i++)
-        _orderAndDelay.push_back({i,delay});
+        _currentSteps.push_back({i,delay});
 
     _totalTime = delay*(float)nFrames;
 
@@ -20,7 +20,7 @@ AnimatedSprite::AnimatedSprite(std::string fileName, sf::Time delay) : _varray(s
     updatePosition();
 }
 
-AnimatedSprite::AnimatedSprite(std::string fileName, AnimationSteps &steps) : _varray(sf::Quads, 4), _orderAndDelay(steps), _x(32), _y(32), _angle(0)
+AnimatedSprite::AnimatedSprite(std::string fileName, const AnimationSteps &steps) : _varray(sf::Quads, 4), _x(32), _y(32), _angle(0), _currentSteps(steps)
 {
     _textures.loadFromFile(fileName);
     auto framesSize = _textures.getSize();
@@ -29,8 +29,24 @@ AnimatedSprite::AnimatedSprite(std::string fileName, AnimationSteps &steps) : _v
     if (height != 64 || width%64)
         throw std::logic_error("Animation texture size is not correct.");
 
-    for (auto p : _orderAndDelay)
+    for (auto p : _currentSteps)
         _totalTime += p.second;
+
+    updateAnimation({});
+    updatePosition();
+}
+
+AnimatedSprite::AnimatedSprite(std::string fileName, const MultiAnimationSteps &multisteps): _varray(sf::Quads, 4), _multiSteps(multisteps), _x(32), _y(32), _angle(0), _totalTime(sf::milliseconds(100))
+{
+    _textures.loadFromFile(fileName);
+    auto framesSize = _textures.getSize();
+    unsigned int width = framesSize.x, height = framesSize.y;
+
+    if (height != 64 || width%64)
+        throw std::logic_error("Animation texture size is not correct.");
+
+    // use first frame forever as default
+    _currentSteps.push_back({0,sf::milliseconds(100)});
 
     updateAnimation({});
     updatePosition();
@@ -65,24 +81,36 @@ std::vector<float> AnimatedSprite::getPosition()
     return {_x,_y};
 }
 
+void AnimatedSprite::chooseAnimation(std::string name)
+{
+    try { _currentSteps = _multiSteps.at(name); }
+    catch (const std::out_of_range& oor) {
+      throw std::logic_error("\"" + name + "\" is not a valid animation name.");
+    }
+    // compute total time of the chosen animation
+    _totalTime = sf::Time::Zero;
+    for (auto p : _currentSteps)
+        _totalTime += p.second;
+}
+
 void AnimatedSprite::updateAnimation(sf::Time dt)
 {
-    _clock += dt;
-    if (_clock >= _totalTime)
-        _clock -= _totalTime;
+    _currentTime += dt;
+    if (_currentTime >= _totalTime)
+        _currentTime -= _totalTime;
 
-    sf::Time cumulatedTime{_orderAndDelay[0].second};
-    float frameNumber = 0;
-    while (cumulatedTime <= _clock)
+    sf::Time cumulatedTime{_currentSteps[0].second};
+    int frameNumber = 0;
+    while (cumulatedTime <= _currentTime)
     {
         frameNumber++;
-        cumulatedTime += _orderAndDelay[frameNumber].second;
+        cumulatedTime += _currentSteps[frameNumber].second;
     }
 
-    _varray[0].texCoords = {64*(float)_orderAndDelay[frameNumber].first,0};
-    _varray[1].texCoords = {64*(float)_orderAndDelay[frameNumber].first+64,0};
-    _varray[2].texCoords = {64*(float)_orderAndDelay[frameNumber].first+64,64};
-    _varray[3].texCoords = {64*(float)_orderAndDelay[frameNumber].first,64};
+    _varray[0].texCoords = {64*(float)_currentSteps[frameNumber].first,0};
+    _varray[1].texCoords = {64*(float)_currentSteps[frameNumber].first+64,0};
+    _varray[2].texCoords = {64*(float)_currentSteps[frameNumber].first+64,64};
+    _varray[3].texCoords = {64*(float)_currentSteps[frameNumber].first,64};
 }
 
 void AnimatedSprite::draw(sf::RenderTarget &target, sf::RenderStates states) const
