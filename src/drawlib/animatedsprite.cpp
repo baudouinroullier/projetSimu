@@ -115,7 +115,8 @@ void AnimatedSprite::updateAnimation(sf::Time dt)
 
 void AnimatedSprite::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
-    target.draw(_varray, &_textures);
+    states.texture = &_textures;
+    target.draw(_varray, states);
 }
 
 void AnimatedSprite::updatePosition()

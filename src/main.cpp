@@ -4,6 +4,7 @@
 
 #include "drawlib/map.h"
 #include "drawlib/animatedsprite.h"
+#include "drawlib/particlemotor.h"
 
 int main()
 {
@@ -108,9 +109,12 @@ int main()
     multiwalk.insert({"down", downWalk});
 
     AnimatedSprite guy("../img/walkingguy.png", multiwalk);
-    multianime.move(256,256);
+    guy.move(256,256);
     /**************************************/
 
+    /****** TESTING PARTICLE EFFECTS ******/
+    ParticleMotor partMotor;
+    /**************************************/
 
     // main loop, TODO: move elsewhere
     while (window.isOpen())
@@ -122,8 +126,13 @@ int main()
             if (event.type == sf::Event::Closed)
                 window.close();
 
-            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
-                window.close();
+            if (event.type == sf::Event::KeyPressed)
+            {
+                if (event.key.code == sf::Keyboard::Escape)
+                    window.close();
+                if (event.key.code == sf::Keyboard::Space)
+                    partMotor.createParticleEffect(100, guy.getPosition()[0], guy.getPosition()[1]);
+            }
 
             if (event.type == sf::Event::Resized)
             {
@@ -136,25 +145,25 @@ int main()
         /****** MOVING THE SPRITE LIKE A PLAYER ******/
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
         {
-            guy.move(2,0);
+            guy.move(4,0);
             guy.chooseAnimation("right");
             multianime.chooseAnimation("right");
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
         {
-            guy.move(-2,0);
+            guy.move(-4,0);
             guy.chooseAnimation("left");
             multianime.chooseAnimation("left");
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
         {
-            guy.move(0,2);
+            guy.move(0,4);
             guy.chooseAnimation("down");
             multianime.chooseAnimation("down");
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
         {
-            guy.move(0,-2);
+            guy.move(0,-4);
             guy.chooseAnimation("up");
             multianime.chooseAnimation("up");
         }
@@ -172,14 +181,15 @@ int main()
         window.setView(view);
         /*********************************************/
 
-        /****** UPDATE ANIMATED SPRITES ******/
+        /****** UPDATE TIMES THINGS ******/
         auto elapsedTime = animationClock.getElapsedTime();
         anime.rotate(elapsedTime.asMilliseconds()*M_PI/180/4);
         anime.updateAnimation(elapsedTime);
         multianime.updateAnimation(elapsedTime);
         guy.updateAnimation(elapsedTime);
+        partMotor.update(elapsedTime);
         animationClock.restart();
-        /**************************************/
+        /**********************************/
 
         /****** DISPLAY EVERYTHING ******/
         window.clear();
@@ -187,6 +197,7 @@ int main()
         window.draw(anime);
         window.draw(multianime);
         window.draw(guy);
+        window.draw(partMotor);
         window.display();
         /********************************/
     }

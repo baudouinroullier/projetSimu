@@ -60,7 +60,8 @@ void Map::update()
     }
 }
 
-void Map::draw(sf::RenderTarget &target, sf::RenderStates) const
+void Map::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
-    target.draw(_varray, &_stitched.getTexture());
+    states.texture = &_stitched.getTexture();
+    target.draw(_varray, states);
 }
