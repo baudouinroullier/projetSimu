@@ -1,11 +1,11 @@
-#include "particlemotor.h"
+#include "particleengine.h"
 
-ParticleMotor::ParticleMotor() : _varray(sf::Quads, 0)
+ParticleEngine::ParticleEngine() : _varray(sf::Quads, 0)
 {
 
 }
 
-void ParticleMotor::createParticleEffect(int partNumber, double x, double y)
+void ParticleEngine::createParticleEffect(int partNumber, double x, double y)
 {
     _particleEffects.push_back({partNumber, x, y});
 
@@ -13,7 +13,7 @@ void ParticleMotor::createParticleEffect(int partNumber, double x, double y)
     _varray.resize(size+4*partNumber);
 }
 
-void ParticleMotor::update(sf::Time dt)
+void ParticleEngine::update(sf::Time dt)
 {
     int i(0);
     for (auto &pe : _particleEffects)
@@ -45,7 +45,7 @@ void ParticleMotor::update(sf::Time dt)
     }
 }
 
-void ParticleMotor::draw(sf::RenderTarget &target, sf::RenderStates states) const
+void ParticleEngine::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
     target.draw(_varray, states);
 }

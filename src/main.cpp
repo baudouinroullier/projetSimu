@@ -4,7 +4,7 @@
 
 #include "drawlib/map.h"
 #include "drawlib/animatedsprite.h"
-#include "drawlib/particlemotor.h"
+#include "drawlib/particleengine.h"
 
 int main()
 {
@@ -113,7 +113,7 @@ int main()
     /**************************************/
 
     /****** TESTING PARTICLE EFFECTS ******/
-    ParticleMotor partMotor;
+    ParticleEngine partMotor;
     /**************************************/
 
     // main loop, TODO: move elsewhere

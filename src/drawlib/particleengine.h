@@ -6,10 +6,10 @@
 #include "particleeffect.h"
 
 
-class ParticleMotor : public sf::Drawable
+class ParticleEngine : public sf::Drawable
 {
 public:
-    ParticleMotor();
+    ParticleEngine();
 
     void createParticleEffect(int partNumber, double x, double y);
 
