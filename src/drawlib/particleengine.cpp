@@ -2,12 +2,11 @@
 
 ParticleEngine::ParticleEngine() : _varray(sf::Quads, 0)
 {
-
 }
 
-void ParticleEngine::createParticleEffect(int partNumber, double x, double y)
+void ParticleEngine::createParticleEffect(int partNumber, double x, double y, ParticleTemplate &tplt)
 {
-    _particleEffects.push_back({partNumber, x, y});
+    _particleEffects.push_back({partNumber, x, y, tplt});
 
     int size = _varray.getVertexCount();
     _varray.resize(size+4*partNumber);

@@ -9,7 +9,7 @@
 class Particle
 {
 public:
-    Particle(double x, double y, double vx, double vy, sf::Time lifeTime,
+    Particle(double x, double y, double v, double theta, sf::Time lifeTime,
              std::function<std::array<double,2>(double, double, double, double, sf::Time)> accelerationModel,
              std::function<sf::Color(double, double, double, double, sf::Time)> colorModel );
 
