@@ -13,7 +13,7 @@ public:
     ParticleEffect(int numberOfParticles, double x, double y, ParticleTemplate &tplt);
 
     void update(sf::Time dt);
-    bool isOver();
+    bool isOver() const;
 
     std::vector<Particle> getParticles() const;
 

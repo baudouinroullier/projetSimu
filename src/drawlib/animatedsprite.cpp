@@ -76,7 +76,7 @@ void AnimatedSprite::rotate(double dangle)
     setRotation(_angle+dangle);
 }
 
-std::vector<float> AnimatedSprite::getPosition()
+std::vector<float> AnimatedSprite::getPosition() const
 {
     return {_x,_y};
 }

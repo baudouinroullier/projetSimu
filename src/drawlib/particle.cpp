@@ -1,12 +1,10 @@
 #include "particle.h"
-#include <iostream>
 
 Particle::Particle(double x, double y, double v, double theta, sf::Time lifeTime,
                    std::function<std::array<double,2>(double, double, double, double, sf::Time)> accelerationModel,
                    std::function<sf::Color(double, double, double, double, sf::Time)> colorModel):
     _x(x), _y(y), _vx(v*cos(theta)), _vy(v*sin(theta)), _lifeTime(lifeTime), _accelerationModel(accelerationModel), _colorModel(colorModel)
 {
-    std::cout << v << " " << theta << std::endl;
 }
 
 void Particle::update(sf::Time dt)
@@ -29,12 +27,12 @@ double Particle::getY() const
     return _y;
 }
 
-sf::Color Particle::getColor()
+sf::Color Particle::getColor() const
 {
     return _colorModel(_x, _y, _vx, _vy, _lifeTime);
 }
 
-bool Particle::isOver()
+bool Particle::isOver() const
 {
     return _lifeTime <= sf::Time::Zero;
 }

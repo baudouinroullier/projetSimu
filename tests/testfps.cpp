@@ -9,7 +9,7 @@ int main()
 {
     srand(0); // seed the randomiser
 
-    sf::RenderWindow window(sf::VideoMode(600, 600), "SFML works!");  // create window
+    sf::RenderWindow window(sf::VideoMode(600, 600), "Om nom nom GPU :3");  // create window
 
     // create vertex array and prepare stitched texture
     sf::VertexArray varray(sf::Quads, 20000);

@@ -18,7 +18,7 @@ void ParticleEngine::update(sf::Time dt)
     for (auto &pe : _particleEffects)
     {
         pe.update(dt);
-        for (auto p : pe.getParticles())
+        for (const auto &p : pe.getParticles())
         {
             if (!p.isOver())
             {

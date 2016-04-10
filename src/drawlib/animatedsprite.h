@@ -23,7 +23,7 @@ public:
     void move(double dx, double dy);
     void rotate(double dangle);
 
-    std::vector<float> getPosition();
+    std::vector<float> getPosition() const;
 
     void chooseAnimation(std::string name);
     void updateAnimation(sf::Time dt);

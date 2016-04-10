@@ -13,13 +13,15 @@ public:
              std::function<std::array<double,2>(double, double, double, double, sf::Time)> accelerationModel,
              std::function<sf::Color(double, double, double, double, sf::Time)> colorModel );
 
+//    Particle (const Particle& particle) = delete;
+
     void update(sf::Time dt);
 
     double getX() const;
     double getY() const;
-    sf::Color getColor();
+    sf::Color getColor() const;
 
-    bool isOver();
+    bool isOver() const;
 
 private:
     double _x, _y;

@@ -3,9 +3,7 @@
 #include <string>
 #include <iostream>
 
-#include "drawlib/map.h"
-#include "drawlib/animatedsprite.h"
-#include "drawlib/particleengine.h"
+#include "../src/drawlib/animatedsprite.h"
 
 int main()
 {
@@ -14,36 +12,6 @@ int main()
     auto wndSize = window.getSize();
     sf::View view({0,0, (float)wndSize.x, (float)wndSize.y});
     window.setView(view);
-
-
-    /****** TESTING MAPS ******/
-    Map map(32,24);
-
-    // tiles for the terrain -> should be read from a level design file
-    std::vector<VisualTile> tiles(32*24,VisualTile::EMPTY);
-    for (int i=131; i<141; i++)
-        tiles[i] = VisualTile::WALL;
-    for (int i=259; i<269; i++)
-        tiles[i] = VisualTile::GROUND;
-    tiles[163] = VisualTile::WALL;
-    tiles[172] = VisualTile::WALL;
-    tiles[195] = VisualTile::WALL;
-    tiles[204] = VisualTile::WINDOW;
-    tiles[227] = VisualTile::DOOR;
-    tiles[236] = VisualTile::WALL;
-
-    for (int i=503; i<508; i++)
-        tiles[i] = VisualTile::WALL;
-    for (int i=535; i<540; i++)
-        tiles[i] = VisualTile::DOOR;
-    for (int i=567; i<572; i++)
-        tiles[i] = VisualTile::GROUND;
-
-    // set the tiles we created
-    map.setTiles(tiles);
-    map.setTile(7,7,VisualTile::DOOR);
-    map.update();
-    /**************************/
 
     /****** TESTING ANIMATED SPRITES ******/
     sf::Clock clock;
@@ -113,22 +81,6 @@ int main()
     guy.move(256,256);
     /**************************************/
 
-    /****** TESTING PARTICLE EFFECTS ******/
-    ParticleEngine partMotor;
-    ParticleTemplate partTpltSparks([]()->double{return 0;}, []()->double{return 0;},
-                                    []()->double{return ParticleTemplate::normalDist(0.,200.);}, []()->double{return ParticleTemplate::uniformDist(0.,2*M_PI);},
-                                    []()->sf::Time{return sf::seconds(ParticleTemplate::normalDist(.1,.2));},
-                                    [](double, double, double vx, double vy, sf::Time)->std::array<double,2>{return {-2*vx, -2*vy+2000};},
-                                    [](double, double, double vx, double vy, sf::Time t)->sf::Color{return {255, std::min<sf::Uint8>(2*sqrt(t.asSeconds())*sqrt(vx*vx+vy*vy),255), std::min<sf::Uint8>(4*pow(t.asSeconds(),2.)*sqrt(vx*vx+vy*vy),255)};} );
-
-    ParticleTemplate partTpltRain([]()->double{return ParticleTemplate::uniformDist(-2000,1000);}, []()->double{return ParticleTemplate::uniformDist(-2000,1000);},
-                                  []()->double{return ParticleTemplate::normalDist(600,10);}, []()->double{return ParticleTemplate::normalDist(M_PI/3.,M_PI/100.);},
-                                  []()->sf::Time{return sf::seconds(ParticleTemplate::normalDist(8,0));},
-                                  [](double, double, double, double, sf::Time)->std::array<double,2>{return {0,0};},
-                                  [](double, double, double vx, double vy, sf::Time t)->sf::Color{return {100, 200, 255};} );
-
-    /**************************************/
-
     // main loop, TODO: move elsewhere
     while (window.isOpen())
     {
@@ -143,10 +95,6 @@ int main()
             {
                 if (event.key.code == sf::Keyboard::Escape)
                     window.close();
-                if (event.key.code == sf::Keyboard::Space)
-                    partMotor.createParticleEffect(100, guy.getPosition()[0], guy.getPosition()[1], partTpltSparks);
-                if (event.key.code == sf::Keyboard::B)
-                    partMotor.createParticleEffect(2000, guy.getPosition()[0], guy.getPosition()[1], partTpltRain);
             }
 
             if (event.type == sf::Event::Resized)
@@ -202,16 +150,13 @@ int main()
         anime.updateAnimation(elapsedTime);
         multianime.updateAnimation(elapsedTime);
         guy.updateAnimation(elapsedTime);
-        partMotor.update(elapsedTime);
         /**********************************/
 
         /****** DISPLAY EVERYTHING ******/
         window.clear();
-        window.draw(map);
         window.draw(anime);
         window.draw(multianime);
         window.draw(guy);
-        window.draw(partMotor);
         window.display();
         /********************************/
     }

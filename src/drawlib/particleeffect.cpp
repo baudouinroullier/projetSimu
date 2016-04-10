@@ -17,7 +17,7 @@ void ParticleEffect::update(sf::Time dt)
         p.update(dt);
 }
 
-bool ParticleEffect::isOver()
+bool ParticleEffect::isOver() const
 {
     for (auto& p : _particles)
         if (!p.isOver())
