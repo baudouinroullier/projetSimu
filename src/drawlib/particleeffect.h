@@ -10,10 +10,10 @@
 class ParticleEffect
 {
 public:
-    ParticleEffect(int numberOfParticles, double x, double y, ParticleTemplate &tplt);
+    ParticleEffect(int numberOfParticles, double x, double y, const ParticleTemplate &tplt);
 
     void update(sf::Time dt);
-    bool isOver() const;
+    bool isDead() const;
 
     std::vector<Particle> getParticles() const;
 

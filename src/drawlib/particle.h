@@ -21,7 +21,7 @@ public:
     double getY() const;
     sf::Color getColor() const;
 
-    bool isOver() const;
+    bool isDead() const;
 
 private:
     double _x, _y;

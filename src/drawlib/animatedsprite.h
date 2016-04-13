@@ -14,6 +14,7 @@ typedef std::unordered_map<std::string, std::vector<std::pair<unsigned int, sf::
 class AnimatedSprite : public sf::Drawable
 {
 public:
+    AnimatedSprite(std::string XMLFileName);
     AnimatedSprite(std::string fileName, sf::Time delay);
     AnimatedSprite(std::string fileName, const AnimationSteps &steps);
     AnimatedSprite(std::string fileName, const MultiAnimationSteps &multisteps);

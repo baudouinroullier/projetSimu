@@ -1,5 +1,11 @@
 #include "animatedsprite.h"
+#include "../tinyxml2/tinyxml2.h"
 
+
+AnimatedSprite::AnimatedSprite(std::string XMLFileName)
+{
+
+}
 
 AnimatedSprite::AnimatedSprite(std::string fileName, sf::Time delay) : _varray(sf::Quads, 4), _x(32), _y(32), _angle(0)
 {

@@ -21,8 +21,10 @@ int main()
     for (int i=0; i<10; i++)
     {
         sf::Texture texture;
-        string name = "../../img/tile" + to_string(i) + ".png";
-        texture.loadFromFile(name);
+        string name = "../img/tile" + to_string(i) + ".png";
+        if (!texture.loadFromFile(name))
+            throw std::runtime_error("Could load "+name);
+
 
         // stitch textures together
         sf::Sprite sprite(texture);

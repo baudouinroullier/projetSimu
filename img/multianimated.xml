@@ -1,0 +1,29 @@
+<Root>
+    <TextureFile>multianimated.png</TextureFile>
+    <Animations>
+        <Animation name="right">
+            <Frame num=0>200</Frame>
+            <Frame num=1>200</Frame>
+            <Frame num=2>200</Frame>
+            <Frame num=1>200</Frame>
+        </Animation>
+        <Animation name="left">
+            <Frame num=3>200</Frame>
+            <Frame num=4>200</Frame>
+            <Frame num=5>200</Frame>
+            <Frame num=4>200</Frame>
+        </Animation>
+        <Animation name="upW">
+            <Frame num=6>200</Frame>
+            <Frame num=7>200</Frame>
+            <Frame num=8>200</Frame>
+            <Frame num=7>200</Frame>
+        </Animation>
+        <Animation name="down">
+            <Frame num=9>200</Frame>
+            <Frame num=10>200</Frame>
+            <Frame num=11>200</Frame>
+            <Frame num=10>200</Frame>
+        </Animation>
+    </Animations>
+</Root>

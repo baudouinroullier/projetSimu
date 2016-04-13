@@ -11,51 +11,57 @@ ParticleTemplate::ParticleTemplate(std::function<double(void)> x,
 {
 }
 
-double ParticleTemplate::x()
+double ParticleTemplate::x() const
 {
     return _x();
 }
 
-double ParticleTemplate::y()
+double ParticleTemplate::y() const
 {
     return _y();
 }
 
-double ParticleTemplate::v()
+double ParticleTemplate::v() const
 {
     return _v();
 }
 
-double ParticleTemplate::theta()
+double ParticleTemplate::theta() const
 {
     return _theta();
 }
 
-sf::Time ParticleTemplate::lifeTime()
+sf::Time ParticleTemplate::lifeTime() const
 {
     return _lifeTime();
 }
 
-std::function<std::array<double,2> (double, double, double, double, sf::Time)> ParticleTemplate::accelerationModel()
+std::function<std::array<double,2> (double, double, double, double, sf::Time)> ParticleTemplate::accelerationModel() const
 {
     return _accelerationModel;
 }
 
-std::function<sf::Color (double, double, double, double, sf::Time)> ParticleTemplate::colorModel()
+std::function<sf::Color (double, double, double, double, sf::Time)> ParticleTemplate::colorModel() const
 {
     return _colorModel;
 }
 
-double ParticleTemplate::normalDist(double mean, double stddev)
+std::function<double(void)> ParticleTemplate::normalDist(double mean, double stddev)
 {
     static std::default_random_engine generator;
-    std::normal_distribution<double> normalDist(mean, stddev);
-    return normalDist(generator);
+    return [mean, stddev]()
+    {
+        std::normal_distribution<double> normalDist(mean, stddev);
+        return normalDist(generator);
+    };
 }
 
-double ParticleTemplate::uniformDist(double a, double b)
+std::function<double(void)> ParticleTemplate::uniformDist(double a, double b)
 {
     static std::default_random_engine generator;
-    std::uniform_real_distribution<double> uniformDist(a,b);
-    return uniformDist(generator);
+    return [a,b]()
+    {
+        std::uniform_real_distribution<double> uniformDist(a,b);
+        return uniformDist(generator);
+    };
 }

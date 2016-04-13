@@ -7,6 +7,7 @@
 #include <array>
 
 
+
 class ParticleTemplate
 {
 public:
@@ -18,19 +19,18 @@ public:
                      std::function<std::array<double,2>(double, double, double, double, sf::Time)> accelerationModel,
                      std::function<sf::Color(double, double, double, double, sf::Time)> colorModel);
 
-    double x();
-    double y();
-    double v();
-    double theta();
-    sf::Time lifeTime();
-    std::function<std::array<double,2>(double, double, double, double, sf::Time)> accelerationModel();
-    std::function<sf::Color(double, double, double, double, sf::Time)> colorModel();
+    double x() const;
+    double y() const;
+    double v() const;
+    double theta() const;
+    sf::Time lifeTime() const;
+    std::function<std::array<double,2>(double, double, double, double, sf::Time)> accelerationModel() const;
+    std::function<sf::Color(double, double, double, double, sf::Time)> colorModel() const;
 
-    static double normalDist(double mean, double stddev);
-    static double uniformDist(double a, double b);
+    static std::function<double(void)> normalDist(double mean, double stddev);
+    static std::function<double(void)> uniformDist(double a, double b);
 
 private:
-
     std::function<double(void)> _x, _y, _v, _theta;
     std::function<sf::Time(void)> _lifeTime;
     std::function<std::array<double,2>(double, double, double, double, sf::Time)> _accelerationModel;

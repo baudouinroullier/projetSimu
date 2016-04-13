@@ -2,7 +2,7 @@
 #include <random>
 #include <array>
 
-ParticleEffect::ParticleEffect(int numberOfParticles, double x, double y, ParticleTemplate &tplt)
+ParticleEffect::ParticleEffect(int numberOfParticles, double x, double y, const ParticleTemplate &tplt)
 {
     _particles.reserve(numberOfParticles);
     for (int i=numberOfParticles; i; i--)
@@ -17,10 +17,10 @@ void ParticleEffect::update(sf::Time dt)
         p.update(dt);
 }
 
-bool ParticleEffect::isOver() const
+bool ParticleEffect::isDead() const
 {
     for (auto& p : _particles)
-        if (!p.isOver())
+        if (!p.isDead())
             return false;
     return true;
 }

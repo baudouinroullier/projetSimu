@@ -20,7 +20,7 @@ void ParticleEngine::update(sf::Time dt)
         pe.update(dt);
         for (const auto &p : pe.getParticles())
         {
-            if (!p.isOver())
+            if (!p.isDead())
             {
                 _varray[4*i  ].position = {(float)p.getX()-2, (float)p.getY()-2};
                 _varray[4*i+1].position = {(float)p.getX()+2, (float)p.getY()-2};
@@ -38,7 +38,7 @@ void ParticleEngine::update(sf::Time dt)
     _varray.resize(4*i);
     for (auto it=_particleEffects.begin(); it!=_particleEffects.end();)
     {
-        if (it->isOver())
+        if (it->isDead())
             it = _particleEffects.erase(it);
         else it++;
     }

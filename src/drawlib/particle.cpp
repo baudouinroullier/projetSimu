@@ -32,7 +32,7 @@ sf::Color Particle::getColor() const
     return _colorModel(_x, _y, _vx, _vy, _lifeTime);
 }
 
-bool Particle::isOver() const
+bool Particle::isDead() const
 {
     return _lifeTime <= sf::Time::Zero;
 }
