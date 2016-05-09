@@ -13,6 +13,8 @@ Apprendre a utiliser Git : https://git-scm.com/book/en/v2/Getting-Started-About-
 
 Apprendre le C++ : https://openclassrooms.com/courses/programmez-avec-le-langage-c (parties 1, 2 et 4)
 
+Apprendre la SFML : https://openclassrooms.com/courses/creez-des-applications-2d-avec-sfml
+
 Diagramme UML : Je propose ArgoUML (http://argouml.tigris.org/). Si vous pensez a un autre soft ou site dites-le. J'ai fait un exemple rapide non complet pour montrer ce que ca donne.
 
 
