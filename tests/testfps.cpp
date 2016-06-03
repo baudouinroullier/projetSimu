@@ -9,7 +9,7 @@ int main()
 {
     srand(0); // seed the randomiser
 
-    sf::RenderWindow window(sf::VideoMode(600, 600), "SFML works!");  // create window
+    sf::RenderWindow window(sf::VideoMode(600, 600), "Om nom nom GPU :3");  // create window
 
     // create vertex array and prepare stitched texture
     sf::VertexArray varray(sf::Quads, 20000);
@@ -21,8 +21,10 @@ int main()
     for (int i=0; i<10; i++)
     {
         sf::Texture texture;
-        string name = "../../img/tile" + to_string(i) + ".png";
-        texture.loadFromFile(name);
+        string name = "../img/tile" + to_string(i) + ".png";
+        if (!texture.loadFromFile(name))
+            throw std::runtime_error("Could load "+name);
+
 
         // stitch textures together
         sf::Sprite sprite(texture);
