@@ -1,4 +1,5 @@
 #include "particle.h"
+#include <cmath>
 
 Particle::Particle(double x, double y, double v, double theta, sf::Time lifeTime,
                    std::function<std::array<double,2>(double, double, double, double, sf::Time)> accelerationModel,

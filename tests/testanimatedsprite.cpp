@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include <cmath>
 
 #include "../src/drawlib/animatedsprite.h"
 
