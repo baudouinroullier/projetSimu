@@ -32,7 +32,7 @@ int main()
                                   ParticleTemplate::normalDist(300,150), ParticleTemplate::uniformDist(0.,2*M_PI),
                                   [](){return sf::seconds(ParticleTemplate::normalDist(1.2,.5)());},
                                   [](double, double, double vx, double vy, sf::Time)->std::array<double,2>{return { -2*vx, 100-2*vy};},
-                                  [](double, double, double, double, sf::Time t)->sf::Color{return {255*pow(t.asSeconds(),0.25), 255*pow(t.asSeconds(),0.25), 255*pow(1-t.asSeconds(),0.25)};} );
+                                  [](double, double, double, double, sf::Time t)->sf::Color{return sf::Color(255*pow(t.asSeconds(),0.25), 255*pow(t.asSeconds(),0.25), 255*pow(1-t.asSeconds(),0.25));} );
     /**************************************/
 
     sf::Clock clock;

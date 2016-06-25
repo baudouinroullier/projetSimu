@@ -20,6 +20,19 @@ Diagramme UML : Je propose ArgoUML (http://argouml.tigris.org/). Si vous pensez 
 
 # Installation et compilation
 
+## OSX
+Ouvrez un terminal et placez-vous dans un répertoire approprié.
+Installez Homebrew :
+```
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+```
+Installez la SFML et CMake :
+```
+brew install sfml
+brew install cmake
+```
+Puis suivez les instructions pour Linux.
+
 ## Linux
 
 Installez la sfml avec votre gestionnaire de paquet (libsfml-dev)
